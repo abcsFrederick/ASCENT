@@ -1,0 +1,11 @@
+from os.path import join
+
+include: join("rules/init.smk")
+include: join("rules/rmats.smk")
+
+localrules: all
+
+rule all:
+    input:
+        # create index if needed
+        sa=join(STARINDEXDIR,"SA")
