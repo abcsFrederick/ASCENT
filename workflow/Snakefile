@@ -8,4 +8,7 @@ localrules: all
 rule all:
     input:
         # create index if needed
-        sa=join(STARINDEXDIR,"SA")
+        join(STARINDEXDIR,"SA"),
+        # rmats output
+        expand(join(RESULTSDIR,"{contrast}","summary.txt"),contrast=CONTRASTS)
+	
