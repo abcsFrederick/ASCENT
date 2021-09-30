@@ -61,5 +61,7 @@ python ${{RMATS_SRC}}/rmats.py \
     --bi "{params.stardir}" \
     --nthread {threads} \
     -t "paired" \
+    --novelSS \
+    --libType "fr-secondstrand" \
     --tmp /lscratch/${{SLURM_JOB_ID}}/
 """
