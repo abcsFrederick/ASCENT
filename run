@@ -20,7 +20,7 @@ module purge
 # essential files
 # these are relative to the workflows' base folder
 # these are copied into the WORKDIR
-ESSENTIAL_FILES="config/config.yaml config/samples.tsv resources/cluster.json resources/tools.yaml"
+ESSENTIAL_FILES="config/config.yaml config/samples.tsv config/contrasts.tsv resources/cluster.json resources/tools.yaml"
 ESSENTIAL_FOLDERS="workflow/scripts"
 
 SCRIPTNAME="$0"
@@ -120,7 +120,7 @@ done
 if [ ! -d $WORKDIR/logs ]; then mkdir -p $WORKDIR/logs;echo "Logs Dir: $WORKDIR/logs";fi
 if [ ! -d $WORKDIR/stats ];then mkdir -p $WORKDIR/stats;echo "Stats Dir: $WORKDIR/stats";fi
 
-echo "Done Initializing $WORKDIR. You can now edit $WORKDIR/config.yaml and $WORKDIR/samples.tsv"
+echo "Done Initializing $WORKDIR. You can now edit $WORKDIR/config.yaml, $WORKDIR/samples.tsv and $WORKDIR/contrasts.tsv"
 
 }
 
@@ -129,7 +129,7 @@ function check_essential_files() {
 # Checks if files essential to start running the pipeline exist in the workdir
 
   if [ ! -d $WORKDIR ];then err "Folder $WORKDIR does not exist!"; fi
-  for f in config.yaml samples.tsv; do
+  for f in config.yaml samples.tsv contrasts.tsv; do
     if [ ! -f $WORKDIR/$f ]; then err "Error: '${f}' file not found in workdir ... initialize first!";fi
   done
 
@@ -150,7 +150,7 @@ function set_singularity_binds(){
 # biowulf specific
   echo "$PIPELINE_HOME" > ${WORKDIR}/tmp1
   echo "$WORKDIR" >> ${WORKDIR}/tmp1
-  grep -o '\/.*' <(cat ${WORKDIR}/config.yaml ${WORKDIR}/samples.tsv)|tr '\t' '\n'|grep -v ' \|\/\/'|sort|uniq >> ${WORKDIR}/tmp1
+  grep -o '\/.*' <(cat ${WORKDIR}/config.yaml ${WORKDIR}/samples.tsv ${WORKDIR}/contrasts.tsv)|tr '\t' '\n'|grep -v ' \|\/\/'|sort|uniq >> ${WORKDIR}/tmp1
   grep gpfs ${WORKDIR}/tmp1|awk -F'/' -v OFS='/' '{print $1,$2,$3,$4,$5}' |sort|uniq > ${WORKDIR}/tmp2
   grep -v gpfs ${WORKDIR}/tmp1|awk -F'/' -v OFS='/' '{print $1,$2,$3}'|sort|uniq > ${WORKDIR}/tmp3
   while read a;do readlink -f $a;done < ${WORKDIR}/tmp3 > ${WORKDIR}/tmp4
