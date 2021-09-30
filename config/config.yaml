@@ -16,4 +16,4 @@ ref_fa: "/data/Ziegelbauer_lab/resources/hg38_rRNA_masked_plus_rRNA_plus_viruses
 samples: "WORKDIR/samples.tsv"
 # tab delimited contrasts with 2 columns
 # group1  group2
-contrasts: "WORKDIR/contasts.tsv"
+contrasts: "WORKDIR/contrasts.tsv"
