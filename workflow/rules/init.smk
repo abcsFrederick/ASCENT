@@ -190,7 +190,6 @@ cmd=SCRIPTSDIR+"/_printmaxrl2 "+filelist
 MAXRL=subprocess.check_output(cmd, stderr=subprocess.STDOUT, shell = True)
 MAXRL=int(MAXRL.strip())
 
-STARINDEXDIR=join(STARINDEXDIR,"genes-"+str(MAXRL))
 CONTRASTSDF=pd.read_csv(config['contrasts'],sep="\t",names=["group1","group2"])
 CONTRASTSDF["name"] = CONTRASTSDF["group1"] + "_vs_" + CONTRASTSDF["group2"]
 CONTRASTS=CONTRASTSDF["name"].to_list()
@@ -200,19 +199,21 @@ GROUPSINCONTRASTS=g1s+g2s
 GROUPSINCONTRASTS=list(set(GROUPSINCONTRASTS))
 
 
-GROUP2SAMPLESTXT=dict()
-if not os.path.exists(join(WORKDIR,"rmats_samples_txt_files")):
-    os.mkdir(join(WORKDIR,"rmats_samples_txt_files"))
+GROUP2RMATSTXT=dict()
+RMATSTXTDIR=join(WORKDIR,"rmats_txt_files")
+BAMDIR=join(WORKDIR,"bam")
+if not os.path.exists(BAMDIR):
+    os.mkdir(BAMDIR)
+if not os.path.exists(RMATSTXTDIR):
+    os.mkdir(RMATSTXTDIR)
 for group in GROUPSINCONTRASTS:
     group_txt=[]
     for sample in GROUP2SAMPLES[group]:
-        R1=SAMPLESDF["R1"][sample]
-        R2=SAMPLESDF["R2"][sample]
-        sample_txt=":".join(map(str,[R1,R2]))
-        group_txt.append(sample_txt)
+        bamfile=join(BAMDIR,sample+".Aligned.sortedByCoord.out.bam")
+        group_txt.append(bamfile)
     group_txt=",".join(map(str,group_txt))
-    outfilename=join(WORKDIR,"rmats_samples_txt_files",group+".txt")
-    GROUP2SAMPLESTXT[group]=outfilename
+    outfilename=join(RMATSTXTDIR,group+".txt")
+    GROUP2RMATSTXT[group]=outfilename
     outfile=open(outfilename,'w')
     outfile.write(group_txt)
     outfile.close()
