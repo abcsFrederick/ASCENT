@@ -1,6 +1,7 @@
 from os.path import join
 
 include: join("rules/init.smk")
+include: join("rules/star.smk")
 include: join("rules/rmats.smk")
 
 localrules: all
@@ -11,6 +12,7 @@ rule all:
         join(STARINDEXDIR,"SA"),
         # run STAR
         expand(join(BAMDIR,"{sample}.Aligned.sortedByCoord.out.bam"),sample=SAMPLES),
+        expand(join(BAMDIR,"{sample}.Aligned.toTranscriptome.out.bam"),sample=SAMPLES),
         # rmats output
         # expand(join(RESULTSDIR,"{contrast}","summary.txt"),contrast=CONTRASTS)
 	
