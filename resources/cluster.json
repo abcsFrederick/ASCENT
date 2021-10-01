@@ -13,6 +13,10 @@
 		"threads"	: "56",
 		"mem"		: "220g"
 	},
+	"star":{
+		"threads"	: "56",
+		"mem"		: "220g"
+	},
 	"rmats":{
 		"threads"	: "56",
 		"mem"		: "220g"
