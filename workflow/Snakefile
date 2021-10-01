@@ -1,14 +1,17 @@
 from os.path import join
 
 include: join("rules/init.smk")
+include: join("rules/rsem.smk")
 include: join("rules/rmats.smk")
 
 localrules: all
 
 rule all:
     input:
-        # create index if needed
-        join(STARINDEXDIR,"SA"),
+        # create star index
+        # join(STARINDEXDIR,"SA"),
+        # create rsem index
+        join(RSEMINDEXDIR,"ref.transcripts.ump")
         # rmats output
-        expand(join(RESULTSDIR,"{contrast}","summary.txt"),contrast=CONTRASTS)
+        # expand(join(RESULTSDIR,"{contrast}","summary.txt"),contrast=CONTRASTS)
 	

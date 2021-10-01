@@ -177,6 +177,9 @@ STARINDEXDIR=join(WORKDIR,"star_index_dir")
 if not os.path.exists(STARINDEXDIR):
     os.mkdir(STARINDEXDIR)
 print("# STAR index dir  :",STARINDEXDIR)
+RSEMINDEXDIR=join(WORKDIR,"rsem_index_dir")
+if not os.path.exists(RSEMINDEXDIR):
+    os.mkdir(RSEMINDEXDIR)
 
 #########################################################
 # get maxrl
