@@ -9,6 +9,8 @@ rule all:
     input:
         # create index if needed
         join(STARINDEXDIR,"SA"),
+        # run STAR
+        expand(join(BAMDIR,"{sample}.Aligned.sortedByCoord.out.bam"),sample=SAMPLES),
         # rmats output
-        expand(join(RESULTSDIR,"{contrast}","summary.txt"),contrast=CONTRASTS)
+        # expand(join(RESULTSDIR,"{contrast}","summary.txt"),contrast=CONTRASTS)
 	
