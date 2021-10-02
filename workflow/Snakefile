@@ -1,6 +1,7 @@
 from os.path import join
 
 include: join("rules/init.smk")
+include: join("rules/rsem.smk")
 include: join("rules/star.smk")
 include: join("rules/rmats.smk")
 
@@ -8,6 +9,10 @@ localrules: all
 
 rule all:
     input:
+        # create star index
+        # join(STARINDEXDIR,"SA"),
+        # create rsem index
+        join(RSEMINDEXDIR,"ref.transcripts.ump")
         # create index if needed
         join(STARINDEXDIR,"SA"),
         # run STAR
