@@ -4,61 +4,41 @@ def get_samples_files(wildcards):
     x=CONTRASTSDF[CONTRASTSDF['name']==contrast]
     x=x.iloc[0]
     g1=x.group1
-    files['s1']=GROUP2SAMPLESTXT[g1]
     g2=x.group2
-    files['s2']=GROUP2SAMPLESTXT[g2]
+    for group in [g1,g2]:
+        for sample in GROUP2SAMPLES[group]:
+            bamfile=join(BAMDIR,sample+".Aligned.sortedByCoord.out.bam")
+            files[sample]=bamfile
+    files['b1']=GROUP2RMATSTXT[g1]
+    files['b2']=GROUP2RMATSTXT[g2]
+    files['sa']=join(STARINDEXDIR,"SA")
     return files
 
-rule create_star_index:
-    input:
-        reffa=REFFA,
-        gtf=GTF
-    output:
-        sa=join(STARINDEXDIR,"SA")
-    params:
-        rl=MAXRL,
-        stardir=STARINDEXDIR,
-    envmodules: 
-        TOOLS['rmats']['version']
-    threads: getthreads("create_star_index")
-    shell:"""
-set -euf -o pipefail
-mkdir -p {params.stardir}
-STAR \
-    --runThreadN {threads} \
-    --runMode genomeGenerate \
-    --genomeDir {params.stardir} \
-    --genomeFastaFiles {input.reffa} \
-    --sjdbGTFfile {input.gtf} \
-    --sjdbOverhang $(echo {params.rl}|awk '{{print $1-1}}') \
-    --outTmpDir /lscratch/${{SLURM_JOB_ID}}/tmp_{params.rl}
-"""
 
 rule rmats:
     input:
-        unpack(get_samples_files),
-	sa=rules.create_star_index.output.sa
+        unpack(get_samples_files)
     output:
         summary=join(RESULTSDIR,"{contrast}","summary.txt")
+    threads: getthreads("rmats")
     params:
         rl=MAXRL,
         gtf=GTF,
-        stardir=STARINDEXDIR,
-    envmodules:
+        starindexdir=STARINDEXDIR
+    envmodules: 
         TOOLS['rmats']['version']
-    threads: getthreads("rmats")
     shell:"""
 set -euf -o pipefail
 outdir=$(dirname {output.summary})
-cp "{input.s1}" $outdir/
-cp "{input.s2}" $outdir/
+cp "{input.b1}" $outdir/
+cp "{input.b2}" $outdir/
 python ${{RMATS_SRC}}/rmats.py \
-    --s1 "{input.s1}" \
-    --s2 "{input.s2}" \
+    --b1 "{input.b1}" \
+    --b2 "{input.b2}" \
     --od "$outdir" \
     --gtf "{params.gtf}" \
     --readLength {params.rl} \
-    --bi "{params.stardir}" \
+    --bi "{params.starindexdir}" \
     --nthread {threads} \
     -t "paired" \
     --novelSS \
