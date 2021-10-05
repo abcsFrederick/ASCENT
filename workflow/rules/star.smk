@@ -62,3 +62,29 @@ STAR \
     --sjdbOverhang $overhang \
     --quantMode GeneCounts TranscriptomeSAM
 """
+
+rule get_rsem_counts:
+    input:
+        bed12=rules.create_bed12.output.bed12,
+        bam=rules.star.output.bam,
+        tbam=rules.star.output.tbam        
+    output:
+        strandinfo=join(WORKDIR,"strandinfo","{sample}.strandinfo"),
+        gcounts=join(workpath,degall_dir,"{name}.RSEM.genes.results"),
+        tcounts=join(workpath,degall_dir,"{name}.RSEM.isoforms.results"),
+    envmodules: TOOLS['rseqc']['version'], TOOLS['rsem']['version']
+    threads: getthreads("get_rsem_counts")
+    params:
+        sample="{sample}"
+    shell:"""
+set -euf -o pipefail
+# inter strandedness
+infer_experiment.py -r {input.bed12} -i {input.bam} -s 1000000 > {output.strandinfo}
+# Get strandedness to calculate Forward Probability
+fp=$(tail -n1 {output.strandinfo} | awk '{{if($NF > 0.75) print "0.0"; else if ($NF<0.25) print "1.0"; else print "0.5";}}')
+echo "Forward Probability Passed to RSEM: $fp"
+rsem-calculate-expression --no-bam-output --calc-ci --seed 12345  \
+        --bam --paired-end -p {threads}  {input.tbam} {input.bed12} {params.sample} --time \
+        --temporary-folder /lscratch/$SLURM_JOBID --keep-intermediate-files --forward-prob=${{fp}} --estimate-rspd
+"""    
+
