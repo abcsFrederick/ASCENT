@@ -70,14 +70,16 @@ rule get_rsem_counts:
         tbam=rules.star.output.tbam        
     output:
         strandinfo=join(WORKDIR,"strandinfo","{sample}.strandinfo"),
-        gcounts=join(workpath,degall_dir,"{name}.RSEM.genes.results"),
-        tcounts=join(workpath,degall_dir,"{name}.RSEM.isoforms.results"),
+        gcounts=join(WORKDIR,"rsem","genecounts","{sample}","{sample}.RSEM.genes.results"),
+        tcounts=join(WORKDIR,"rsem","isoformcounts","{sample}","{sample}.RSEM.isoform.results"),
     envmodules: TOOLS['rseqc']['version'], TOOLS['rsem']['version']
     threads: getthreads("get_rsem_counts")
     params:
-        sample="{sample}"
+        sample="{sample}",
+        rsemdir=join(WORKDIR,"rsem")
     shell:"""
 set -euf -o pipefail
+cd {params.rsemdir}
 # inter strandedness
 infer_experiment.py -r {input.bed12} -i {input.bam} -s 1000000 > {output.strandinfo}
 # Get strandedness to calculate Forward Probability
@@ -86,5 +88,7 @@ echo "Forward Probability Passed to RSEM: $fp"
 rsem-calculate-expression --no-bam-output --calc-ci --seed 12345  \
         --bam --paired-end -p {threads}  {input.tbam} {input.bed12} {params.sample} --time \
         --temporary-folder /lscratch/$SLURM_JOBID --keep-intermediate-files --forward-prob=${{fp}} --estimate-rspd
+mv {params.sample}.RSEM.genes.results {output.gcounts}
+mv {params.sample}.RSEM.isoforms.results {output.tcounts}
 """    
 
