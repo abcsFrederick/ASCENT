@@ -23,7 +23,7 @@ rule create_bed12:
     params:
         rsemindexdir=RSEMINDEXDIR
     envmodules:
-        TOOLS['ucsc']['version']
+        TOOLS['ucsc']['version'], 
     shell:"""
 set -euf -o pipefail
 cd {params.rsemindexdir}
