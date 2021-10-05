@@ -30,6 +30,6 @@ cd {params.rsemindexdir}
 genesgtf={input.gtf}
 bn=$(basename $genesgtf)
 gtfToGenePred -genePredExt -geneNameAsName2 $genesgtf ${{bn}}.tmp
-awk '{{print $2"\t"$4"\t"$5"\t"$1"\t0\t"$3"\t"$6"\t"$7"\t0\t"$8"\t"$9"\t"$10}}' ${{bn}}.tmp > {output.bed12}
+awk -v OFS="\t" '{{print $2,$4,$5,$1,"0",$3,$6,$7,"0",$8,$9,$10}}' ${{bn}}.tmp > {output.bed12}
 rm -f ${{bn}}.tmp
 """
