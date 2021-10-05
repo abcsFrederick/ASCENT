@@ -24,5 +24,9 @@
 	"rmats":{
 		"threads"	: "56",
 		"mem"		: "220g"
+	},
+	"get_rsem_counts":{
+		"threads"	: "56",
+		"mem"		: "220g"		
 	}
 }
