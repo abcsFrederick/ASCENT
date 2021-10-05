@@ -12,7 +12,8 @@ rule all:
         # create star index
         # join(STARINDEXDIR,"SA"),
         # create rsem index
-        join(RSEMINDEXDIR,"ref.transcripts.ump")
+        join(RSEMINDEXDIR,"ref.transcripts.ump"),
+        join(RSEMINDEXDIR,"ref.bed12"),
         # create index if needed
         join(STARINDEXDIR,"SA"),
         # run STAR
