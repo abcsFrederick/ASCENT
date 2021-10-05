@@ -19,6 +19,8 @@ rule all:
         # run STAR
         expand(join(BAMDIR,"{sample}.Aligned.sortedByCoord.out.bam"),sample=SAMPLES),
         expand(join(BAMDIR,"{sample}.Aligned.toTranscriptome.out.bam"),sample=SAMPLES),
+        # rsem counts
+        expand(join(WORKDIR,"rsem","isoformcounts","{sample}","{sample}.RSEM.isoform.results"),sample+SAMPLES),
         # rmats output
         # expand(join(RESULTSDIR,"{contrast}","summary.txt"),contrast=CONTRASTS)
 	
