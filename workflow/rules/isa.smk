@@ -9,14 +9,14 @@ def get_rsem_files(wildcards):
     for group in [g1,g2]:
         for sample in GROUP2SAMPLES[group]:
             source=join(WORKDIR,"rsem","isoformcounts",sample,sample+".RSEM.isoform.results")
-            if not os.path.exists(join(RESULTSDIR,contrast,"rsem")):
-                os.mkdir(join(RESULTSDIR,contrast,"rsem"))
-            if not os.path.exists(join(RESULTSDIR,contrast,"rsem",sample)):
-                os.mkdir(join(RESULTSDIR,contrast,"rsem",sample))
-            dest=join(RESULTSDIR,contrast,"rsem",sample,sample+".RSEM.isoform.results")
-            os.link(source,dest)
+            for folder in [ join(RESULTSDIR,contrast,"isa"), join(RESULTSDIR,contrast,"isa","rsem"), join(RESULTSDIR,contrast,"isa","rsem",sample) ]:
+                if not os.path.exists(folder):
+                    os.mkdir(folder)
+            dest=join(RESULTSDIR,contrast,"isa","rsem",sample,sample+".RSEM.isoform.results")
+            if not os.path.exists(dest):
+                os.link(source,dest)
             files[sample+"_original"]=source
-            files[sample]=dest
+            # files[sample]=dest
     return files
 
 def get_condition1(contrast):
@@ -37,7 +37,7 @@ rule isa:
     input:
         unpack(get_rsem_files),
     output:
-        join(RESULTSDIR,"{contrast}","SplicingSummary.pdf")
+        join(RESULTSDIR,"{contrast}","isa","SplicingSummary.pdf")
     params:
         gtf=GTF,
         parentdir=join(RESULTSDIR,"{contrast}","rsem"),
