@@ -4,6 +4,7 @@ include: join("rules/init.smk")
 include: join("rules/rsem.smk")
 include: join("rules/star.smk")
 include: join("rules/rmats.smk")
+include: join("rules/isa.smk")
 
 localrules: all
 
