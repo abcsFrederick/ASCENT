@@ -22,5 +22,7 @@ rule all:
         # rsem counts
         expand(join(WORKDIR,"rsem","isoformcounts","{sample}","{sample}.RSEM.isoform.results"),sample=SAMPLES),
         # rmats output
-        # expand(join(RESULTSDIR,"{contrast}","summary.txt"),contrast=CONTRASTS)
+        # expand(join(RESULTSDIR,"{contrast}","rmats","summary.txt"),contrast=CONTRASTS)
+        # IsoformSwitchAnalyzeR output
+        expand(join(RESULTSDIR,"{contrast}","isa","SplicingSummary.pdf"),contrast=CONTRASTS))
 	
