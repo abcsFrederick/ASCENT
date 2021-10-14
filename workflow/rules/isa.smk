@@ -1,5 +1,6 @@
 # rules for isoformSwitchAnalzyeR
 def get_rsem_files(wildcards):
+    print(wildcards)
     files=dict()
     contrast=wildcards.contrast
     x=CONTRASTSDF[CONTRASTSDF['name']==contrast]
@@ -9,14 +10,7 @@ def get_rsem_files(wildcards):
     for group in [g1,g2]:
         for sample in GROUP2SAMPLES[group]:
             source=join(WORKDIR,"rsem","isoformcounts",sample,sample+".RSEM.isoform.results")
-            for folder in [ join(RESULTSDIR,contrast,"isa"), join(RESULTSDIR,contrast,"isa","rsem"), join(RESULTSDIR,contrast,"isa","rsem",sample) ]:
-                if not os.path.exists(folder):
-                    os.mkdir(folder)
-            dest=join(RESULTSDIR,contrast,"isa","rsem",sample,sample+".RSEM.isoform.results")
-            if not os.path.exists(dest):
-                os.link(source,dest)
-            files[sample+"_original"]=source
-            # files[sample]=dest
+            files[sample]=source
     return files
 
 def get_condition1(contrast):
@@ -33,9 +27,31 @@ def get_condition2(contrast):
     g2=x.group2
     return g2
 
+rule isa_init:
+    input:
+        unpack(get_rsem_files):
+    output:
+        dummy=join(RESULTSDIR,"{contrast}","isa","dummy")
+    params:
+        parentdir=join(RESULTSDIR,"{contrast}","isa","rsem")
+    shell:"""
+set -exuf -o pipefail
+if [ ! -d {params.parentdir} ];then
+    mkdir -p {params.parentdir}
+fi
+for i in {input}; do
+    bn=$(basename $i)
+    sn=$(echo $bn|awk -F".RSEM" '{{print $1}}')
+    mkdir -p {params.parentdir}/${{sn}}
+    ln $i {params.parentdir}/${{sn}}/${{bn}}
+done
+touch {output.dummy}
+"""
+
+
 rule isa:
     input:
-        unpack(get_rsem_files),
+        rules.isa_init.output.dummy,
     output:
         join(RESULTSDIR,"{contrast}","isa","SplicingSummary.pdf")
     params:
