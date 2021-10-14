@@ -8,3 +8,5 @@ rseqc:
   version: "rseqc/4.0.0"
 samtools:
   version: "samtools/1.13"
+R:
+  version: "R/4.1"
