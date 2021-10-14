@@ -75,7 +75,8 @@ if not os.path.exists(join(WORKDIR,"fastqs")):
 for f in ["samples", "tools", "cluster"]:
     check_readaccess(config[f])
 
-SAMPLESDF = pd.read_csv(config["samples"],sep="\t",header=0,index_col="sampleName")
+SAMPLESTSV = config["samples"]
+SAMPLESDF = pd.read_csv(SAMPLESTSV,sep="\t",header=0,index_col="sampleName")
 SAMPLES = list(SAMPLESDF.index)
 SAMPLESDF["R1"]=join(RESOURCESDIR,"dummy")
 SAMPLESDF["R2"]=join(RESOURCESDIR,"dummy")
