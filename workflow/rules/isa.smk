@@ -29,7 +29,7 @@ def get_condition2(contrast):
 
 rule isa_init:
     input:
-        unpack(get_rsem_files):
+        unpack(get_rsem_files)
     output:
         dummy=join(RESULTSDIR,"{contrast}","isa","dummy")
     params:
