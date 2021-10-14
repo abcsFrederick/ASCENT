@@ -13,19 +13,6 @@
 #             files[sample]=source
 #     return files
 
-def get_condition1(contrast):
-    x=CONTRASTSDF[CONTRASTSDF['name']==contrast]
-    x=x.iloc[0]
-    g1=x.group1
-    g2=x.group2
-    return g1
-
-def get_condition2(contrast):
-    x=CONTRASTSDF[CONTRASTSDF['name']==contrast]
-    x=x.iloc[0]
-    g1=x.group1
-    g2=x.group2
-    return g2
 
 rule isa_init:
     input:
@@ -56,21 +43,22 @@ rule isa:
         join(RESULTSDIR,"{contrast}","isa","SplicingSummary.pdf")
     params:
         gtf=GTF,
-        parentdir=join(RESULTSDIR,"{contrast}","rsem"),
+        parentdir=join(RESULTSDIR,"{contrast}","isa","rsem"),
         samplestsv=SAMPLESTSV,
-        condition1=get_condition1("{contrast}"),
-        condition2=get_condition2("{contrast}"),
-        outdir=join(RESULTSDIR,"{contrast}"),
+        contrast="{contrast}"
+        outdir=join(RESULTSDIR,"{contrast}","isa"),
         rscript=join(SCRIPTSDIR,"isa.R")
     envmodules: TOOLS["R"]["version"]
     shell:"""
 set -exuf -o pipefail
+c1=$(echo {{params.contrast}}|awk -F"_vs_" '{{print $1}}')
+c2=$(echo {{params.contrast}}|awk -F"_vs_" '{{print $2}}')
 Rscript {params.rscript} \
  -p {params.parentdir} \
  -g {params.gtf} \
  -s {params.samplestsv} \
- -c {params.condition1} \
- -d {params.condition2} \
+ -c $c1 \
+ -d $c2 \
  -o {params.outdir}
 """
 
