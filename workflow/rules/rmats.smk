@@ -19,7 +19,7 @@ rule rmats:
     input:
         unpack(get_samples_files)
     output:
-        summary=join(RESULTSDIR,"{contrast}","summary.txt")
+        summary=join(RESULTSDIR,"{contrast}","rmats","summary.txt")
     threads: getthreads("rmats")
     params:
         rl=MAXRL,
