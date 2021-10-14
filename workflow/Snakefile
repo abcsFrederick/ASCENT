@@ -25,5 +25,5 @@ rule all:
         # rmats output
         # expand(join(RESULTSDIR,"{contrast}","rmats","summary.txt"),contrast=CONTRASTS)
         # IsoformSwitchAnalyzeR output
-        expand(join(RESULTSDIR,"{contrast}","isa","SplicingSummary.pdf"),contrast=CONTRASTS))
+        #expand(join(RESULTSDIR,"{contrast}","isa","SplicingSummary.pdf"),contrast=CONTRASTS))
 	

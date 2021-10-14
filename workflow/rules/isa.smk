@@ -1,18 +1,16 @@
 # rules for isoformSwitchAnalzyeR
-# def get_rsem_files(wildcards):
-#     print(wildcards)
-#     files=dict()
-#     contrast=wildcards.contrast
-#     x=CONTRASTSDF[CONTRASTSDF['name']==contrast]
-#     x=x.iloc[0]
-#     g1=x.group1
-#     g2=x.group2
-#     for group in [g1,g2]:
-#         for sample in GROUP2SAMPLES[group]:
-#             source=join(WORKDIR,"rsem","isoformcounts",sample,sample+".RSEM.isoform.results")
-#             files[sample]=source
-#     return files
-
+def get_rsem_files(wildcards):
+     files=dict()
+     contrast=wildcards.contrast
+     x=CONTRASTSDF[CONTRASTSDF['name']==contrast]
+     x=x.iloc[0]
+     g1=x.group1
+     g2=x.group2
+     for group in [g1,g2]:
+         for sample in GROUP2SAMPLES[group]:
+             source=join(WORKDIR,"rsem","isoformcounts",sample,sample+".RSEM.isoform.results")
+             files[sample]=source
+     return files
 
 rule isa_init:
     input:
