@@ -71,7 +71,7 @@ rule get_rsem_counts:
     output:
         strandinfo=join(WORKDIR,"strandinfo","{sample}.strandinfo"),
         gcounts=join(WORKDIR,"rsem","genecounts","{sample}","{sample}.RSEM.genes.results"),
-        tcounts=join(WORKDIR,"rsem","isoformcounts","{sample}","{sample}.RSEM.isoform.results"),
+        tcounts=join(WORKDIR,"rsem","isoformcounts","{sample}","{sample}.RSEM.isoforms.results"),
     envmodules: TOOLS['rseqc']['version'], TOOLS['rsem']['version'], TOOLS["samtools"]["version"]
     threads: getthreads("get_rsem_counts")
     params:
