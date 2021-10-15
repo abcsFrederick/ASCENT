@@ -43,7 +43,7 @@ rule isa:
         gtf=GTF,
         parentdir=join(RESULTSDIR,"{contrast}","isa","rsem"),
         samplestsv=SAMPLESTSV,
-        contrast="{contrast}"
+        contrast="{contrast}",
         outdir=join(RESULTSDIR,"{contrast}","isa"),
         rscript=join(SCRIPTSDIR,"isa.R")
     envmodules: TOOLS["R"]["version"]
