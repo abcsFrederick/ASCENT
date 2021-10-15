@@ -90,7 +90,7 @@ rsemindex=$(echo {input.bed12}|sed "s@.bed12@@g")
 rsem-calculate-expression --no-bam-output --calc-ci --seed 12345  \
         --bam --paired-end -p {threads}  {input.tbam} $rsemindex {params.sample} --time \
         --temporary-folder /lscratch/$SLURM_JOBID --keep-intermediate-files --forward-prob=${{fp}} --estimate-rspd
-mv {params.sample}.RSEM.genes.results {output.gcounts}
-mv {params.sample}.RSEM.isoforms.results {output.tcounts}
+mv {params.sample}.genes.results {output.gcounts}
+mv {params.sample}.isoforms.results {output.tcounts}
 """    
 
