@@ -21,9 +21,9 @@ rule all:
         expand(join(BAMDIR,"{sample}.Aligned.sortedByCoord.out.bam"),sample=SAMPLES),
         expand(join(BAMDIR,"{sample}.Aligned.toTranscriptome.out.bam"),sample=SAMPLES),
         # rsem counts
-        expand(join(WORKDIR,"rsem","isoformcounts","{sample}","{sample}.RSEM.isoform.results"),sample=SAMPLES),
+        expand(join(WORKDIR,"rsem","isoformcounts","{sample}","{sample}.RSEM.isoforms.results"),sample=SAMPLES),
         # rmats output
-        # expand(join(RESULTSDIR,"{contrast}","rmats","summary.txt"),contrast=CONTRASTS)
+        expand(join(RESULTSDIR,"{contrast}","rmats","summary.txt"),contrast=CONTRASTS),
         # IsoformSwitchAnalyzeR output
-        #expand(join(RESULTSDIR,"{contrast}","isa","SplicingSummary.pdf"),contrast=CONTRASTS))
+        expand(join(RESULTSDIR,"{contrast}","isa","SplicingSummary.pdf"),contrast=CONTRASTS)
 	
