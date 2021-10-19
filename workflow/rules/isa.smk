@@ -49,8 +49,8 @@ rule isa:
     envmodules: TOOLS["R"]["version"]
     shell:"""
 set -exuf -o pipefail
-c1=$(echo {{params.contrast}}|awk -F"_vs_" '{{print $1}}')
-c2=$(echo {{params.contrast}}|awk -F"_vs_" '{{print $2}}')
+c1=$(echo {params.contrast}|awk -F"_vs_" '{{print $1}}')
+c2=$(echo {params.contrast}|awk -F"_vs_" '{{print $2}}')
 Rscript {params.rscript} \
  -p {params.parentdir} \
  -g {params.gtf} \
