@@ -325,6 +325,7 @@ EOF
   else # for unlock and dryrun 
 
 snakemake $1 -s $SNAKEFILE \
+ -r \
 --directory $WORKDIR \
 --use-envmodules \
 --printshellcmds \

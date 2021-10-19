@@ -218,6 +218,7 @@ for group in GROUPSINCONTRASTS:
     group_txt=",".join(map(str,group_txt))
     outfilename=join(RMATSTXTDIR,group+".txt")
     GROUP2RMATSTXT[group]=outfilename
-    outfile=open(outfilename,'w')
-    outfile.write(group_txt)
-    outfile.close()
+    if not os.path.exists(outfilename):
+        outfile=open(outfilename,'w')
+        outfile.write(group_txt)
+        outfile.close()
