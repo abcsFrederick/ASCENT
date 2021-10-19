@@ -8,7 +8,7 @@ def get_rsem_files(wildcards):
      g2=x.group2
      for group in [g1,g2]:
          for sample in GROUP2SAMPLES[group]:
-             source=join(WORKDIR,"rsem","isoformcounts",sample,sample+".RSEM.isoform.results")
+             source=join(WORKDIR,"rsem","isoformcounts",sample,sample+".RSEM.isoforms.results")
              files[sample]=source
      return files
 
