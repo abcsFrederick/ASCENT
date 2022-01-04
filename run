@@ -138,7 +138,10 @@ function check_essential_files() {
 
 function rescript() {
   check_essential_files
-  rsync -az --progress $SCRIPTSDIR $WORKDIR/
+  echo "rescript-ing...."
+  echo "SCRIPTSDIR: $SCRIPTSDIR"
+  echo "WORKDIR: $WORKDIR"
+  rsync -az --progress ${PIPELINE_HOME}/$SCRIPTSDIR $WORKDIR/
   echo "$WORKDIR scripts folder has been updated!"
 }
 
