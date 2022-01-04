@@ -21,7 +21,8 @@ module purge
 # these are relative to the workflows' base folder
 # these are copied into the WORKDIR
 ESSENTIAL_FILES="config/config.yaml config/samples.tsv config/contrasts.tsv resources/cluster.json resources/tools.yaml"
-ESSENTIAL_FOLDERS="workflow/scripts"
+SCRIPTSDIR="workflow/scripts"
+ESSENTIAL_FOLDERS="$SCRIPTSDIR"
 
 SCRIPTNAME="$0"
 SCRIPTBASENAME=$(readlink -f $(basename $0))
@@ -133,6 +134,12 @@ function check_essential_files() {
     if [ ! -f $WORKDIR/$f ]; then err "Error: '${f}' file not found in workdir ... initialize first!";fi
   done
 
+}
+
+function rescript() {
+  check_essential_files
+  rsync -az --progress $SCRIPTSDIR $WORKDIR/
+  echo "$WORKDIR scripts folder has been updated!"
 }
 
 function reconfig(){
@@ -391,9 +398,10 @@ function main(){
     run) runslurm && exit 0;;
     runlocal) runlocal && exit 0;;
     reset) reset && exit 0;;
-    dry) dryrun && exit 0;;                      # hidden option
-    local) runlocal && exit 0;;                  # hidden option
-    reconfig) reconfig && exit 0;;               # hidden option for debugging
+    dry) dryrun && exit 0;;                      # hidden option ... short for dryrun
+    local) runlocal && exit 0;;                  # hidden option ... short for runlocal
+    reconfig) reconfig && exit 0;;               # hidden option ... recopy newer version of config file in the output folder
+    rescript) rescript && exit 0;;		 # hidden option ... recopy over scripts folder to output folder (use when script is updated or new script is added)
     printbinds) printbinds && exit 0;;           # hidden option
     *) err "Unknown RUNMODE \"$RUNMODE\"";;
   esac
