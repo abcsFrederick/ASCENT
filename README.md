@@ -4,3 +4,6 @@ Runs:
 
   * rMATS
   * IsoformSwitchAnalyzeR
+
+## Note:
+IsoformSwitchAnalyzeR fails if replicates are absent.
