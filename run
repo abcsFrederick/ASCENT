@@ -58,7 +58,7 @@ function usage() {
 
     cat << EOF
 ${SCRIPTBASENAME}
---> run CCBR rMATs Pipeline
+--> run CCBR Alternate Splicing Events Pipeline
 
 USAGE:
   bash ${SCRIPTNAME} -m/--runmode=<RUNMODE> -w/--workdir=<WORKDIR>
