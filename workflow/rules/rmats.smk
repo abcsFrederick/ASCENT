@@ -45,3 +45,19 @@ python ${{RMATS_SRC}}/rmats.py \
     --libType "fr-secondstrand" \
     --tmp /lscratch/${{SLURM_JOB_ID}}/
 """
+
+localrules: gather_rmats_stats
+
+rule gather_rmats_stats:
+    input:
+        expand(join(RESULTSDIR,"{contrast}","rmats","summary.txt"),contrast=CONTRASTS)
+    output:
+        xlsx=join(RESULTSDIR,"rmats.results.xlsx")
+    params:
+        rscript=join(SCRIPTSDIR,"gather_rmats_stats.R"),
+        resultsdir=RESULTSDIR
+    envmodules: TOOLS["R"]["version"]
+    shell:"""
+set -exuf -o pipefail
+Rscript {params.rscript} -d {params.resultsdir}
+"""

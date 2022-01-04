@@ -60,3 +60,18 @@ Rscript {params.rscript} \
  -o {params.outdir}
 """
 
+localrules: gather_isa_stats
+
+rule gather_isa_stats:
+    input:
+        expand(join(RESULTSDIR,"{contrast}","isa","SplicingSummary.pdf"),contrast=CONTRASTS)
+    output:
+        xlsx=join(RESULTSDIR,"isa.results.xlsx")
+    params:
+        rscript=join(SCRIPTSDIR,"gather_isa_stats.R"),
+        resultsdir=RESULTSDIR
+    envmodules: TOOLS["R"]["version"]
+    shell:"""
+set -exuf -o pipefail
+Rscript {params.rscript} -d {params.resultsdir}
+"""
