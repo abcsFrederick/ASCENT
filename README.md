@@ -1,9 +1,13 @@
-# CCBR_ASE
-ASE (alternate splicing events) identification and quantification workflow for multi-group multi-contrasts scenarios.
-Runs:
+# ASCENT
+ASE (alternate splicing events) are identified and quantified using the ASCENT (**A**lternate **S**pli**C**ing **E**ve**N**t **T**ools) pipeline. This workflow can be used for multi-group multi-contrasts scenarios.
 
-  * rMATS
-  * IsoformSwitchAnalyzeR
+ASCENT currently runs:
+
+  * [rMATS<sup>1</sup>](http://rnaseq-mats.sourceforge.net/)
+  * [IsoformSwitchAnalyzeR<sup>2</sup>](https://bioconductor.org/packages/release/bioc/html/IsoformSwitchAnalyzeR.html)
+
+> **NOTE**: 
+> More ASE tools will be added to ASCENT in the future as and when needed. Please contact [Vishal Koparde](mailto:vishal.koparde@nih.gov) to make requests to add specific ASE tool(s).
 
 ## Usage:
 
@@ -27,5 +31,12 @@ Required Arguments:
 2.  WORKDIR: [Type: String]: Absolute or relative path to the output folder with write permissions.
 ```
 
-## Note:
-IsoformSwitchAnalyzeR fails if replicates are absent.
+> ## **DISCLAIMER**:
+> IsoformSwitchAnalyzeR fails if replicates are absent.
+
+## References:
+
+- <sup>1</sup> [http://dx.doi.org/10.1073/pnas.1419161111](http://dx.doi.org/10.1073/pnas.1419161111)
+- <sup>2</sup> [https://doi.org/10.1158/1541-7786.MCR-16-0459](https://doi.org/10.1158/1541-7786.MCR-16-0459)
+
+
