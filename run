@@ -289,9 +289,11 @@ BUYINPARTITIONS=$(bash <(curl -s https://raw.githubusercontent.com/CCBR/Tools/ma
 PARTITIONS="norm"
 if [ $BUYINPARTITIONS ];then PARTITIONS="norm,$BUYINPARTITIONS";fi
 
+PARTITIONS="norm,ccr"
+
   cat > ${WORKDIR}/submit_script.sbatch << EOF
 #!/bin/bash
-#SBATCH --job-name="ccbr1060Pipeline"
+#SBATCH --job-name="ASCENT"
 #SBATCH --mem=10g
 #SBATCH --partition="$PARTITIONS"
 #SBATCH --time=96:00:00
