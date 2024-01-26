@@ -1,8 +1,0 @@
-sampleName	group	path_to_R1_fastq	path_to_R2_fastq
-SD1_ORF57KO-0h-Rep1	SD1_ORF57KO-0h	/data/Ziegelbauer_lab/Sarah/Total1-Flowcell_HL3YNBGXG/Sample_1_Rep2_KO_0h/1_Rep2_KO_0h_S1_R1_001.fastq.gz	/data/Ziegelbauer_lab/Sarah/Total1-Flowcell_HL3YNBGXG/Sample_1_Rep2_KO_0h/1_Rep2_KO_0h_S1_R2_001.fastq.gz
-SD1_ORF57KO-0h-Rep2	SD1_ORF57KO-0h	/data/Ziegelbauer_lab/Sarah/Total1-Flowcell_HL3YNBGXG/Sample_7_Rep6_KO_0h/7_Rep6_KO_0h_S7_R1_001.fastq.gz	/data/Ziegelbauer_lab/Sarah/Total1-Flowcell_HL3YNBGXG/Sample_7_Rep6_KO_0h/7_Rep6_KO_0h_S7_R2_001.fastq.gz
-SD1_ORF57KO-24h-Rep1	SD1_ORF57KO-24h	/data/Ziegelbauer_lab/Sarah/Total1-Flowcell_HL3YNBGXG/Sample_2_Rep2_KO_24h/2_Rep2_KO_24h_S2_R1_001.fastq.gz	/data/Ziegelbauer_lab/Sarah/Total1-Flowcell_HL3YNBGXG/Sample_2_Rep2_KO_24h/2_Rep2_KO_24h_S2_R2_001.fastq.gz
-SD1_ORF57KO-24h-Rep2	SD1_ORF57KO-24h	/data/Ziegelbauer_lab/Sarah/Total1-Flowcell_HL3YNBGXG/Sample_8_Rep6_KO_24h/8_Rep6_KO_24h_S8_R1_001.fastq.gz	/data/Ziegelbauer_lab/Sarah/Total1-Flowcell_HL3YNBGXG/Sample_8_Rep6_KO_24h/8_Rep6_KO_24h_S8_R2_001.fastq.gz
-SD1_ORF57KO-72h-Rep1	SD1_ORF57KO-72h	/data/Ziegelbauer_lab/Sarah/Total1-Flowcell_HL3YNBGXG/Sample_3_Rep2_KO_72h/3_Rep2_KO_72h_S3_R1_001.fastq.gz	/data/Ziegelbauer_lab/Sarah/Total1-Flowcell_HL3YNBGXG/Sample_3_Rep2_KO_72h/3_Rep2_KO_72h_S3_R2_001.fastq.gz
-SD1_ORF57KO-72h-Rep2	SD1_ORF57KO-72h	/data/Ziegelbauer_lab/Sarah/Total1-Flowcell_HL3YNBGXG/Sample_9_Rep6_KO_72h/9_Rep6_KO_72h_S9_R1_001.fastq.gz	/data/Ziegelbauer_lab/Sarah/Total1-Flowcell_HL3YNBGXG/Sample_9_Rep6_KO_72h/9_Rep6_KO_72h_S9_R2_001.fastq.gz
-

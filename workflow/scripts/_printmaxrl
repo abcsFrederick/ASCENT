@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-set -euo pipefail
-fastq=$1
-maxrl=$2
-rl=$(zcat $fastq|head -n2|tail -n1|wc -c)
-rl=$((rl-1))
-if [ "$rl" -gt "$maxrl" ];then echo $rl; else echo $maxrl;fi
