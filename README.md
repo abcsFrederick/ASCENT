@@ -1,4 +1,9 @@
 # ASCENT
+
+**A**lternate **S**pli**C**ing **E**ve**N**t **T**ools
+
+[![release](https://img.shields.io/github/v/release/CCBR/ASCENT?color=blue&label=latest%20release)](https://github.com/CCBR/ASCENT/releases/latest)
+
 ASE (alternate splicing events) are identified and quantified using the ASCENT (**A**lternate **S**pli**C**ing **E**ve**N**t **T**ools) pipeline. This workflow can be used for multi-group multi-contrasts scenarios.
 
 ASCENT currently runs:
